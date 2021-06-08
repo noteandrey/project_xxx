@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+{% block content %}
+<h1>Drinks</h1>
+
+  <p>Katalog <em>Drinków</em>, oraz spis składników potrzebnych do przygotowania.</p>
+
+<h2>Content strony</h2>
+
+  <p>Katlog zawiera nastepujęce kategorii:</p>
+  <ul>
+    <li><strong>Drink:</strong> {{ num_drink }}</li>
+    <li><strong>Ingredient:</strong> {{ num_ingredient }}</li>
+    <li><strong>Ingredient:</strong> {{ num_ingredient_available }}</li>
+    <li><strong>IngredientRatio:</strong> {{ num_ingredient_ratio }}</li>
+  </ul>
+  <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+
+{% endblock %}

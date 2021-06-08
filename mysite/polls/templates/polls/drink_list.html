@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Lista drinków</h1>
+
+{% if drink_list %}
+<ul>
+
+    {% for drink in drink_list %}
+    <li>
+        <a href="{{ drink.get_absolute_url }}">{{ drink.drink_name }}</a> ({{drink.description}})
+    </li>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>Brak drinków</p>
+{% endif %}
+{% endblock %}
