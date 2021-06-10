@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Ingredient, IngredientRatio, Drink, TankAllocation
-from django.views import generic
-
-
+from django.views import generic, View
+from .forms import DrinkSearchForm
 
 def index(request):
     """
@@ -31,3 +30,38 @@ class DrinkListView(generic.ListView):
 
 class DrinkDetailView(generic.DetailView):
     model = Drink
+
+
+def details(request, pk):
+    drink = get_object_or_404(Drink, pk=pk)
+    context = {
+        'drink': drink,
+    }
+    return render(request, 'polls/drink_detail.html', context)
+
+
+class DrinkSearchView(View):
+
+    def get(self, request):
+        form = DrinkSearchForm()
+        ctx = {
+            'form': form,
+        }
+        return render(request, 'polls/drink_search.html', ctx)
+
+    def post(self, request):
+        form = DrinkSearchForm(request.POST)
+        if form.is_valid():
+            drinks = Drink.objects.filter(drink_name__contains=form.cleaned_data['name'])
+            ctx = {
+                'form': form,
+                'drinks': drinks,
+            }
+            return render(request, 'polls/drink_search.html', ctx)
+        else:
+            error = "Złe dane formularza"
+            ctx = {
+                'form': form,
+                'error ': error,
+            }
+            return render(request, 'polls/drink_search.html', ctx)

@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+<form action="{% url 'drink_search' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p  }}
+    <input type="submit" value="Wyszukaj">
+</form>
+
+{% if drinks %}
+    <ul>
+    {% for drink in drinks %}
+        <li><a href="{% url 'drink-detail' drink.id %}">{{ drink.drink_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+
+{% endblock %}

@@ -8,7 +8,7 @@
 
     {% for drink in drink_list %}
     <li>
-        <a href="{{ drink.get_absolute_url }}">{{ drink.drink_name }}</a> ({{drink.description}})
+        <a href="{% url 'drink-detail' drink.id %}">{{ drink.drink_name }}</a> ({{drink.description}})
     </li>
     {% endfor %}
 
